@@ -1,0 +1,75 @@
+﻿@page "/CustomerEdit/{Id:int}"
+
+<EditForm Model="@_customer" OnValidSubmit="SaveAsync">
+    <MudGrid>
+        <MudItem xs="12" sm="12">
+            <MudTextField @bind-Value="@_customer.name1" T="string" Variant="Variant.Outlined" Label="ชื่อลูกค้า 1" />
+        </MudItem>
+        <MudItem xs="12" sm="12">
+            <MudTextField @bind-Value="@_customer.name2" T="string" Variant="Variant.Outlined" Label="ชื่อลูกค้า 2" />
+        </MudItem>
+        <MudItem xs="12" sm="12">
+            <MudTextField @bind-Value="@_customer.age" T="int" Variant="Variant.Outlined" Label="ชื่อลูกค้า 2" />
+        </MudItem>
+        <MudItem xs="12" sm="12">
+            <MudPaper Class="pa-4 mt-4">
+                <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Primary" DisableElevation="true" OnClick="@SaveAsync">บันทึก่ข้อมูล</MudButton>
+                <MudButton Variant="Variant.Filled" Color="MudBlazor.Color.Secondary" DisableElevation="true" OnClick="@(()=> NavigationManager.NavigateTo("/Customer"))" Class="mx-2">ยกเลิก</MudButton>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    public string Mod = "";
+    customer _customer = new customer();
+
+    protected override void OnInitialized()
+    {
+        if (Id > 0)
+        {
+            Mod = "E";
+            _customer = customerService.GetById(Id);
+        }
+        else
+        {
+            Mod = "I";
+            _customer = new customer();
+        }
+    }
+
+    async void SaveAsync()
+    {
+        if (Validate())
+        {
+            ResultModel res = new ResultModel();
+            if (Mod == "I")
+            {
+                res = customerService.Add(_customer);
+            }
+            else
+            {
+                res = customerService.Edit(_customer);
+            }
+            if (res.Success)
+            {
+
+            }
+            else
+            {
+
+            }
+            NavigationManager.NavigateTo($"Customer");
+        }
+    }
+
+    bool Validate()
+    {
+        // to do
+        return true;
+    }
+}

@@ -10,7 +10,7 @@
             {
                 //return;
             }
-            customer cs = new customer();
+            /*customer cs = new customer();
             cs.name1 = "chanachai";
             cs.name2 = "benmat";
             cs.sex = "M";
@@ -193,7 +193,7 @@
             orid5.vat = 14;
             orid5.net_amount = 1414;
             db.Orderid.Add(orid5);
-            db.SaveChanges();
+            db.SaveChanges();*/
 
         }
     }
